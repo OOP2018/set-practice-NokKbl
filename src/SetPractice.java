@@ -5,12 +5,13 @@ import java.util.*;
  * @author Kunyaruk Katebunlu
  */
 public class SetPractice {
+	
 	/**
 	 * Add zero or more items to the set, and print what is being added.
 	 * @parameter set is the Set to add items to
 	 * @parameter values zero or more Strings to add to set
 	 */
-	public static void addAll(Set<String> set, String ...values) {
+	public static void addAll(Collection<String> set, String ...values) {
 		// add all the values to the set. 
 		// print each one as you add it
 		for (String string : values) {
@@ -22,7 +23,7 @@ public class SetPractice {
 	/**
 	 * Print all the elements in a set, using an Iterator.
 	 */
-	public static void print(Set<String> set) {
+	public static void print(Collection<String> set) {
 		// create an Iterator using set.iterator()
 		// then use the iterator to print everything in the set
 		Iterator<String> itor = set.iterator();
@@ -35,10 +36,11 @@ public class SetPractice {
 	/**
 	 * Explore behavior of a Set.
 	 */
-	public static void setExplorer( ) {
+	public static void setExplorer(Collection<String> set) {
 		// 1. Create a HashSet and add strings: dog, ant, bird, elephant, cat
-		Set<String> set = new HashSet<String>();
+		//set = new HashSet<String>();
 		addAll(set, "dog", "ant", "bird", "elephant", "cat");
+		System.out.println();
 		
 		// 2. Print elements in the set using an Iterator over the Set.
 		// You're going to need to do this again, so write a method print(Set set) to do it.
@@ -48,6 +50,7 @@ public class SetPractice {
 		// What does this tell you about Sets?
 			//Ans.: No, they don't printed the elements in same order as I added them.
 			// 		This tell me that Sets is give unordered result.
+		
 		System.out.println();
 		// 4. Remove all the elements from the set, using a method that 
 		// defined in Set (and Collection). What is the method to use?
@@ -57,9 +60,11 @@ public class SetPractice {
 		// 5. Add same elements as exercise 1, but in a different order,
 		// such as: "cat", "elephant", "bird", "ant", "dog"
 		addAll(set, "cat", "elephant", "bird", "ant", "dog");
+		System.out.println();
 		
 		// 6. Print the elements in the set.  Is the order same as before?
 		print(set);
+		System.out.println();
 		
 		// 7. Add duplicate elements to the set.  Add another "cat" and "dog".
 		// To ensure that these are *distinct* objects use 'set.add(new String("cat"))'
@@ -72,20 +77,19 @@ public class SetPractice {
 		// What property of Set does this demonstrate?
 		System.out.println("Set contains: ");
 		print(set);
-			//Ans.: Set is unordered elements but the elements will have no duplicate.
-		
 		System.out.println();
+			//Ans.: Set is unordered elements but the elements will have no duplicate.
 		
 		// 9. Repeat the exercises using a TreeSet instead of HashSet.
 		//  What is different when you use TreeSet?
-		Set<String> set2 = new TreeSet<String>();
-		addAll(set2, "dog", "ant", "bird", "elephant", "cat");
-		print(set2);
-		System.out.println("Add duplicate items to the set ");
-		set2.add(new String("cat"));
-		set2.add(new String("dog"));
-		System.out.println("Set contains: ");
-		print(set2);
+//		set = new TreeSet<String>();
+//		addAll(set, "dog", "ant", "bird", "elephant", "cat");
+//		print(set);
+//		System.out.println("Add duplicate items to the set ");
+//		set.add(new String("cat"));
+//		set.add(new String("dog"));
+//		System.out.println("Set contains: ");
+//		print(set);
 			//Ans.: TreeSet still give unordered and no duplicate elements
 			//		but it will sorted the elements by alphabetical.
 		
@@ -97,6 +101,26 @@ public class SetPractice {
 	}
 
 	public static void main(String[] args) {
-		setExplorer();
+		//Step 1-8
+		setExplorer(new HashSet<String>());
+		System.out.println("================");
+		
+		//Step 9
+		setExplorer(new TreeSet<String>());
+		System.out.println("================");
+		
+		//Step 10
+		Comparator<String> comp = new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+		};
+		setExplorer(new TreeSet<String>(comp));
+		System.out.println("================");
+		
+		//Try to use List instead of Set
+		List<String> tryList = new ArrayList<String>();
+		setExplorer(tryList);
 	}
 }
